@@ -7,3 +7,6 @@
 require __DIR__ . '/const.php';
 require __DIR__ . '/../vendor/vendor/autoload.php';
 require __DIR__ . '/../vendor/vendor/yiisoft/yii2/Yii.php';
+
+$originConfigs = require __DIR__ . '/config.php';
+! defined('ORIGIN_CONFIGS') or define('ORIGIN_CONFIGS', $originConfigs);

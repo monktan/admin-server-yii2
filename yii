@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+/**
+ * 命令行程序入口文件
+ */
+require __DIR__ . '/init.php';
+
+$config = require __DIR__ . '/config/console.php';
+$application = new yii\console\Application($config);
+$exitCode = $application->run();
+exit($exitCode);

@@ -1,20 +1,12 @@
 <?php
-/**
- * Description
- *
- *
- * Datetime: 2019-08-04 13:38
- */
 
-namespace star\oauth2;
-
+namespace monktan\libraries\oauth2;
 
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
-use star\oauth2\storages\mysql\AccessTokenEntity;
-use star\oauth2\storages\mysql\AccessTokenModel;
+use monktan\libraries\oauth2\storages\AccessTokenModelInterface;
 
 class AccessToken implements AccessTokenRepositoryInterface
 {
@@ -23,11 +15,11 @@ class AccessToken implements AccessTokenRepositoryInterface
     private $accessTokenEntity;
 
     public function __construct(
-        AccessTokenEntityInterface $accessTokenEntity = null,
-        AccessTokenModel $accessTokenModel = null
+        AccessTokenEntityInterface $accessTokenEntity,
+        AccessTokenModelInterface $accessTokenModel
     ) {
-        $this->accessTokenEntity = is_null($accessTokenModel) ? (new AccessTokenEntity()) : $accessTokenEntity;
-        $this->accessTokenModel = is_null($accessTokenModel) ? (new AccessTokenModel()) : $accessTokenModel;
+        $this->accessTokenEntity = $accessTokenEntity;
+        $this->accessTokenModel = $accessTokenModel;
     }
 
     /**

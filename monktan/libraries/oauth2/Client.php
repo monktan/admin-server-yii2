@@ -1,25 +1,17 @@
 <?php
-/**
- * Description
- *
- *
- * Datetime: 2019-08-04 13:36
- */
-
-namespace star\oauth2;
-
+namespace monktan\libraries\oauth2;
 
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
-use star\oauth2\storages\mysql\ClientEntity;
-use star\oauth2\storages\mysql\ClientModel;
+use monktan\libraries\oauth2\storages\ClientModelInterface;
+use monktan\libraries\oauth2\entities\ClientEntity;
 
 class Client implements ClientRepositoryInterface
 {
     private $clientModel;
 
-    public function __construct(ClientModel $clientModel = null)
+    public function __construct(ClientModelInterface $clientModel)
     {
-        $this->clientModel = is_null($clientModel) ? (new ClientModel()) : $clientModel;
+        $this->clientModel = $clientModel;
     }
 
     public function getClientEntity($clientIdentifier)

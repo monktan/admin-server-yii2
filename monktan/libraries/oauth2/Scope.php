@@ -6,11 +6,11 @@
  * Datetime: 2019-08-04 13:37
  */
 
-namespace star\oauth2;
+namespace monktan\libraries\oauth2;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
-use star\oauth2\storages\mysql\ScopeEntity;
+use monktan\libraries\oauth2\entities\ScopeEntity;
 
 class Scope implements ScopeRepositoryInterface
 {

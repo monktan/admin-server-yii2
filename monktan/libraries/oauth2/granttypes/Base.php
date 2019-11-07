@@ -1,12 +1,6 @@
 <?php
-/**
- * Description
- *
- *
- * Datetime: 2019-08-04 15:31
- */
 
-namespace star\oauth2\granttypes;
+namespace monktan\libraries\oauth2\granttypes;
 
 use star\oauth2\AccessToken;
 use star\oauth2\Client;

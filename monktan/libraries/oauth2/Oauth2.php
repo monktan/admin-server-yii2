@@ -1,12 +1,5 @@
 <?php
-/**
- * Description
- *
- *
- * Datetime: 2019-08-04 15:35
- */
-
-namespace star\oauth2;
+namespace monktan\libraries\oauth2;
 
 class Oauth2
 {

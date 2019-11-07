@@ -1,7 +1,7 @@
 <?php
 
 
-namespace star\oauth2;
+namespace monktan\libraries\oauth2;
 
 use GuzzleHttp\Psr7\ServerRequest;
 

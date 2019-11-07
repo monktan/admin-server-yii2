@@ -1,13 +1,6 @@
 <?php
-/**
- * Description
- *
- *
- * Datetime: 2019-08-04 15:31
- */
 
-namespace star\oauth2\granttypes;
-
+namespace monktan\libraries\oauth2\granttypes;
 
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\CryptKey;
@@ -15,9 +8,9 @@ use League\OAuth2\Server\Grant\ImplicitGrant;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
-use star\oauth2\AccessToken;
-use star\oauth2\Client;
-use star\oauth2\Scope;
+use monktan\libraries\oauth2\AccessToken;
+use monktan\libraries\oauth2\Client;
+use monktan\libraries\oauth2\Scope;
 
 class Implicit extends Base
 {

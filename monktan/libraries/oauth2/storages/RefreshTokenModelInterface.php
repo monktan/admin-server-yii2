@@ -1,7 +1,7 @@
 <?php
 
 
-namespace star\oauth2\storages;
+namespace monktan\libraries\oauth2\storages;
 
 interface RefreshTokenModelInterface
 {

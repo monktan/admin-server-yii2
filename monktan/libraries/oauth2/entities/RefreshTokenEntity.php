@@ -1,8 +1,7 @@
 <?php
 
 
-namespace star\oauth2\storages\mysql;
-
+namespace monktan\libraries\oauth2\entities;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Key;

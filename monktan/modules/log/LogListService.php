@@ -3,7 +3,7 @@ namespace monktan\modules\user;
 
 use monktan\common\services\BaseService;
 
-class UserListService extends BaseService
+class LogListService extends BaseService
 {
     public function getList()
     {

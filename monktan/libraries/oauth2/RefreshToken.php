@@ -1,15 +1,13 @@
 <?php
 
 
-namespace star\oauth2;
+namespace monktan\libraries\oauth2;
 
 use League\OAuth2\Server\CryptKey;
-use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
-use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
-use star\oauth2\storages\mysql\RefreshTokenEntity;
-use star\oauth2\storages\mysql\RefreshTokenModel;
+use monktan\libraries\oauth2\entities\RefreshTokenEntity;
+use monktan\libraries\oauth2\storages\RefreshTokenModelInterface;
 
 class RefreshToken implements RefreshTokenRepositoryInterface
 {
@@ -20,11 +18,11 @@ class RefreshToken implements RefreshTokenRepositoryInterface
     private $privateKey;
 
     public function __construct(
-        RefreshTokenEntityInterface $refreshTokenEntity = null,
-        RefreshTokenModel $refreshTokenModel = null
+        RefreshTokenEntityInterface $refreshTokenEntity,
+        RefreshTokenModelInterface $refreshTokenModel
     ) {
-        $this->refreshTokenEntity = is_null($refreshTokenModel) ? (new RefreshTokenEntity()) : $refreshTokenEntity;
-        $this->refreshTokenModel = is_null($refreshTokenModel) ? (new RefreshTokenModel()) : $refreshTokenModel;
+        $this->refreshTokenEntity = $refreshTokenEntity;
+        $this->refreshTokenModel = $refreshTokenModel;
     }
 
     /**

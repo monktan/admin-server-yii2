@@ -1,12 +1,6 @@
 <?php
-/**
- * Description
- *
- *
- * Datetime: 2019-08-04 13:44
- */
 
-namespace star\oauth2\storages\mysql;
+namespace monktan\libraries\oauth2\entities;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\Traits\ClientTrait;

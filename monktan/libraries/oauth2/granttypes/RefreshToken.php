@@ -1,7 +1,7 @@
 <?php
 
 
-namespace star\oauth2\granttypes;
+namespace monktan\libraries\oauth2\granttypes;
 
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
@@ -9,10 +9,10 @@ use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
-use star\oauth2\AccessToken;
-use star\oauth2\Client;
-use star\oauth2\Scope;
-use star\oauth2\User;
+use monktan\libraries\oauth2\AccessToken;
+use monktan\libraries\oauth2\Client;
+use monktan\libraries\oauth2\Scope;
+use monktan\libraries\oauth2\User;
 
 class RefreshToken extends Base
 {

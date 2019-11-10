@@ -6,7 +6,7 @@
  * Datetime: 2019-08-04 13:37
  */
 
-namespace monktan\libraries\oauth2;
+namespace monktan\libraries\oauth2\repositories;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;

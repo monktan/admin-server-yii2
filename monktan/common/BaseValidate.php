@@ -1,6 +1,10 @@
 <?php
-namespace monktan\common\services;
+namespace monktan\common;
 
 class BaseValidate
 {
+    public function validate($scenario, $params)
+    {
+        return true;
+    }
 }

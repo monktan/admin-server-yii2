@@ -1,11 +1,12 @@
 <?php
 
-namespace monktan\libraries\oauth2;
+namespace monktan\libraries\oauth2\repositories;
 
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
+use monktan\libraries\oauth2\entities\AccessTokenEntity;
 use monktan\libraries\oauth2\storages\AccessTokenModelInterface;
 
 class AccessToken implements AccessTokenRepositoryInterface
@@ -15,7 +16,7 @@ class AccessToken implements AccessTokenRepositoryInterface
     private $accessTokenEntity;
 
     public function __construct(
-        AccessTokenEntityInterface $accessTokenEntity,
+        AccessTokenEntity $accessTokenEntity,
         AccessTokenModelInterface $accessTokenModel
     ) {
         $this->accessTokenEntity = $accessTokenEntity;
@@ -56,7 +57,7 @@ class AccessToken implements AccessTokenRepositoryInterface
         $saveData['expire_time'] = $accessTokenEntity->getExpiryDateTime()->format('Y-m-d H:i:s');
         $accessTokenArr = explode('.', (string)$accessTokenEntity);
         if (! isset($accessTokenArr[2])) {
-            throw_info('无效token');
+            mt_throw_info('无效token');
         }
         $saveData['token_sign'] = $accessTokenArr[2];
 

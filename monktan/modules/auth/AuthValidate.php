@@ -1,7 +1,9 @@
 <?php
 namespace monktan\modules\auth;
 
-class AuthValidate
+use monktan\common\BaseValidate;
+
+class AuthValidate extends BaseValidate
 {
 
 }

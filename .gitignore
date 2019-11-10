@@ -37,4 +37,5 @@ phpunit.phar
 .tmp_staging/
 .tmp_staging
 
-/config.php
+/configs.php
+/sshkey

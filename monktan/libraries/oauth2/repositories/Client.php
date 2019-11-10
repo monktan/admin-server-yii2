@@ -1,5 +1,5 @@
 <?php
-namespace monktan\libraries\oauth2;
+namespace monktan\libraries\oauth2\repositories;
 
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use monktan\libraries\oauth2\storages\ClientModelInterface;

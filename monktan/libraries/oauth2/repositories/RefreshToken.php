@@ -1,7 +1,7 @@
 <?php
 
 
-namespace monktan\libraries\oauth2;
+namespace monktan\libraries\oauth2\repositories;
 
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
@@ -18,7 +18,7 @@ class RefreshToken implements RefreshTokenRepositoryInterface
     private $privateKey;
 
     public function __construct(
-        RefreshTokenEntityInterface $refreshTokenEntity,
+        RefreshTokenEntity $refreshTokenEntity,
         RefreshTokenModelInterface $refreshTokenModel
     ) {
         $this->refreshTokenEntity = $refreshTokenEntity;

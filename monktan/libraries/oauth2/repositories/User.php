@@ -1,7 +1,7 @@
 <?php
 
 
-namespace monktan\libraries\oauth2;
+namespace monktan\libraries\oauth2\repositories;
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
@@ -25,7 +25,7 @@ class User implements UserRepositoryInterface
     ) {
         $user = $this->userModel->getUserByAccount($username, $password);
         if ($clientEntity->getIdentifier() != $user['client_id']) {
-            throw_info('客户端没有授权');
+            mt_throw_info('客户端没有授权');
         }
         $userEntity = new UserEntity();
         $userEntity->setIdentifier($user['user_id']);

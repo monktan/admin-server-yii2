@@ -20,8 +20,11 @@ class AuthService extends BaseService
         $this->model = $userModel;
     }
 
-    public function login($params)
+    public function login($username, $password)
     {
+        $params['username'] = $username;
+        $params['password'] = $password;
+
         return $this->createNewAccessToken($params);
     }
 
@@ -45,7 +48,7 @@ class AuthService extends BaseService
         return $result;
     }
 
-    public function refreshAccessToken()
+    public function refreshToken()
     {
         $_POST['client_id'] = mt_config('oauth2.self_client_id');
         $_POST['client_secret'] =mt_config('oauth2.self_client_secret');

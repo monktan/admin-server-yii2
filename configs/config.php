@@ -25,7 +25,7 @@ return [
             ],
         ],
         'errorHandler' => [
-//            'class' => 'star\common\exceptions\ApiErrorHandler',
+            'class' => 'monktan\common\ErrorHandler',
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -47,10 +47,6 @@ return [
 //            'enableStrictParsing' => true,
 //            'rules' => require __DIR__ . '/route_rules.php',
 //        ],
-        'response' => [
-            'format' => yii\web\Response::FORMAT_JSON,
-            'charset' => 'UTF-8',
-        ],
 //        'db' => ORIGIN_CONFIGS['db']
     ],
     'params' => $params,

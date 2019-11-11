@@ -1,6 +1,8 @@
 <?php
 namespace monktan\framework;
 
+use monktan\framework\db\ModelInterface;
+
 class App
 {
     /**
@@ -12,6 +14,11 @@ class App
      * @var AppInterface
      */
     public static $app;
+
+    /**
+     * @var ModelInterface
+     */
+    public static $model;
 
     /**
      * @var ContainerInterface
@@ -31,5 +38,10 @@ class App
     public static function setConfig(ConfigInterface $config)
     {
         self::$config = $config;
+    }
+
+    public static function setModel(ModelInterface $model)
+    {
+        self::$model = $model;
     }
 }

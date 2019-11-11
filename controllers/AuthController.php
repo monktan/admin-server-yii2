@@ -43,11 +43,15 @@ class AuthController extends BaseWebController
 
     public function actionLogout()
     {
+        $this->service->logout();
 
+        return ['message'=>'退出成功'];
     }
 
     public function actionRefreshToken()
     {
+        $result = $this->service->refreshToken();
 
+        return $result;
     }
 }

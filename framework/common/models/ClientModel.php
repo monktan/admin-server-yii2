@@ -1,13 +1,10 @@
 <?php
 namespace app\framework\common\models;
 
-use app\framework\db\Model;
 use monktan\common\models\ClientModelInterface;
 use monktan\common\models\ClientModelTrait;
-use monktan\common\models\UserModelInterface;
-use monktan\common\models\UserModelTrait;
 
-class ClientModel extends Model implements ClientModelInterface
+class ClientModel extends BaseModel implements ClientModelInterface
 {
     const STATUS_DISABLE = 2;
 
@@ -15,4 +12,8 @@ class ClientModel extends Model implements ClientModelInterface
 
     use ClientModelTrait;
 
+    public static function tableName()
+    {
+        return 'client';
+    }
 }

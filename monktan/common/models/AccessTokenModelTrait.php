@@ -7,19 +7,19 @@ trait AccessTokenModelTrait
 {
     public function saveToken($data)
     {
-        self::insert($data);
+        mt_model($this)->insert($data);
     }
 
     public function revokeToken($tokenId)
     {
         $where = ['token_id'=>$tokenId];
-        self::delete($where);
+        mt_model($this)->delete($where);
     }
 
     public function isTokenRevoked($tokenId)
     {
-        $status = $this->newQuery()->where(['token_id'=>$tokenId])->fields('status')->value();
+        $status = mt_model($this)->newQuery()->where(['token_id'=>$tokenId])->value('status');
 
-        return empty($status) || $status == self::STATUS_DISABLE;
+        return empty($status);
     }
 }

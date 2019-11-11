@@ -17,5 +17,4 @@ return [
         'passphrase' => '',
         'encryption_key' => 'star',
     ],
-
 ];

@@ -3,6 +3,14 @@ namespace monktan\framework\db;
 
 interface ModelInterface
 {
-    public static function newQuery();
-}
+    /**
+     * @return QueryInterface
+     */
+    public function newQuery();
 
+    public function m($model);
+
+    public function insert($model);
+
+    public function delete($model);
+}

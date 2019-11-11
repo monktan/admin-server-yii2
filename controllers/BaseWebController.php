@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\framework\common\filters\AuthFilter;
 use app\framework\common\filters\ValidatorFilter;
 use yii\base\Module;
 use yii\web\Controller;
 
 class BaseWebController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     protected $service;
 
     public $validate;
@@ -31,12 +34,9 @@ class BaseWebController extends Controller
             'validator' => [
                 'class' => ValidatorFilter::class
             ],
-//            'response' => [
-//                'class' => ResponseFilter::class
-//            ],
-//            'auth' => [
-//                'class' => BaseAuthFilter::class
-//            ],
+            'auth' => [
+                'class' => AuthFilter::class
+            ],
         ];
     }
 

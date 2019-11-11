@@ -1,5 +1,7 @@
 <?php
 
+use yii\web\Response;
+
 $params = array_merge(
     require __DIR__ . '/params.php'
 );
@@ -40,14 +42,17 @@ return [
                 ],
             ],
         ],
-
+        'response' => [
+            'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+        ],
 //        'urlManager' => [
 //            'enablePrettyUrl' => true,
 //            'showScriptName' => false,
 //            'enableStrictParsing' => true,
 //            'rules' => require __DIR__ . '/route_rules.php',
 //        ],
-//        'db' => ORIGIN_CONFIGS['db']
+        'db' => ORIGIN_CONFIGS['db']
     ],
     'params' => $params,
 ];

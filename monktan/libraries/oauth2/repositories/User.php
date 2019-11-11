@@ -24,9 +24,6 @@ class User implements UserRepositoryInterface
         ClientEntityInterface $clientEntity
     ) {
         $user = $this->userModel->getUserByAccount($username, $password);
-        if ($clientEntity->getIdentifier() != $user['client_id']) {
-            mt_throw_info('客户端没有授权');
-        }
         $userEntity = new UserEntity();
         $userEntity->setIdentifier($user['user_id']);
 

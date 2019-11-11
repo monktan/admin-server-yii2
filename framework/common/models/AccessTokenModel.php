@@ -1,16 +1,22 @@
 <?php
 namespace app\framework\common\models;
 
-use app\framework\db\Model;
 use monktan\common\models\AccessTokenModelInterface;
 use monktan\common\models\AccessTokenModelTrait;
-use monktan\common\models\ClientModelInterface;
-use monktan\common\models\ClientModelTrait;
-use monktan\common\models\UserModelInterface;
-use monktan\common\models\UserModelTrait;
 
-class AccessTokenModel extends Model implements AccessTokenModelInterface
+class AccessTokenModel extends BaseModel implements AccessTokenModelInterface
 {
     use AccessTokenModelTrait;
 
+    public function rules()
+    {
+        return [
+            [['token_id','token_sign','user_id','client_id','expire_time'], 'safe'],
+        ];
+    }
+
+    public static function tableName()
+    {
+        return 'access_token';
+    }
 }

@@ -60,3 +60,42 @@ if (! function_exists('mt_response')) {
         return \Yii::$app->response->send();
     }
 }
+
+if (! function_exists('mt_model')) {
+    /**
+     * @param $modelObj
+     * @return \monktan\framework\db\ModelInterface
+     */
+    function mt_model($modelObj)
+    {
+        $model = \monktan\framework\App::$model;
+
+        return $model->m($modelObj);
+    }
+}
+
+if (! function_exists('mt_route')) {
+    function mt_route()
+    {
+        $controller = get_class(Yii::$app->controller);
+        $action = Yii::$app->controller->action->id;
+
+        return "{$controller}::{$action}";
+    }
+}
+
+if (! function_exists('mt_session_data')) {
+    function mt_session_data($key = '')
+    {
+        $sessionData = [];
+        if (! isset($_SERVER['session_data'])) {
+            return $sessionData;
+        }
+        $sessionData = $_SERVER['session_data'];
+        if (empty($key)) {
+            return $sessionData;
+        }
+
+        return $sessionData[$key] ?? null;
+    }
+}

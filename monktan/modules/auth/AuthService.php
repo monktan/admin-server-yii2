@@ -99,7 +99,7 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
 
     public function revokeAccessToken()
     {
-        $accessTokenId = get_session_info('oauth_access_token_id');
+        $accessTokenId = mt_session_data('oauth_access_token_id');
         $instance = Oauth2::getInstance('Password');
         $instance->getAccessToken()->revokeAccessToken($accessTokenId);
         $refreshToken = $instance->getRefreshToken();

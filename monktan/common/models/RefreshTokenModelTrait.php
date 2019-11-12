@@ -18,9 +18,9 @@ trait RefreshTokenModelTrait
 
     public function isTokenRevoked($tokenId)
     {
-        $status = mt_model($this)->newQuery()->where(['token_id'=>$tokenId])->value('status');
+        $id = mt_model($this)->newQuery()->where(['token_id'=>$tokenId])->value('id');
 
-        return empty($status);
+        return empty($id);
     }
 
     public function getRefreshTokenInfoByAccessTokenId($accessTokenId)

@@ -63,14 +63,21 @@ if (! function_exists('mt_response')) {
 
 if (! function_exists('mt_model')) {
     /**
-     * @param $modelObj
+     * @param $frameworkModel
      * @return \monktan\framework\db\ModelInterface
      */
-    function mt_model($modelObj)
+    function mt_model($frameworkModel)
     {
-        $model = \monktan\framework\App::$model;
+        $modelObj = \monktan\framework\App::$model;
 
-        return $model->m($modelObj);
+        if (is_string($frameworkModel)) {
+            $classModel = '';
+            $model = [];
+        } else {
+            $model = $modelObj->m($frameworkModel);
+        }
+
+        return $model;
     }
 }
 
@@ -97,5 +104,43 @@ if (! function_exists('mt_session_data')) {
         }
 
         return $sessionData[$key] ?? null;
+    }
+}
+
+if (! function_exists('mt_is_index_array')) {
+    function mt_is_index_array($array)
+    {
+        if (is_array($array)) {
+            $keys = array_keys($array);
+            return $keys == array_keys($keys);
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('mt_is_assoc_array')) {
+    function mt_is_assoc_array($array)
+    {
+        if (is_array($array)) {
+            $keys = array_keys($array);
+            return $keys != array_keys($keys);
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('mt_is_one_array')) {
+    function mt_is_one_array($array)
+    {
+        return count($array) == count($array, 1);
+    }
+}
+
+if (! function_exists('mt_is_one_assoc_array')) {
+    function mt_is_one_assoc_array($array)
+    {
+        return mt_is_one_array($array) && mt_is_assoc_array($array);
     }
 }

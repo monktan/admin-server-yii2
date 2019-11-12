@@ -10,7 +10,9 @@ interface ModelInterface
 
     public function m($model);
 
-    public function insert($model);
+    public function insert($data);
 
-    public function delete($model);
+    public function update($data, $condition = '');
+
+    public function delete($condition);
 }

@@ -17,4 +17,14 @@ trait UserModelTrait
 
         return $user;
     }
+
+    public function getUserById($userId)
+    {
+        $where = ['user_id' => $userId];
+        $fields = ['user_id', 'real_name', 'username', 'mobile',
+            'email', 'status', 'remark', 'create_time', 'update_time', 'create_by', 'update_by'];
+        $user = mt_model($this)->newQuery()->where($where)->fields($fields)->one();
+
+        return $user;
+    }
 }

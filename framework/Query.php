@@ -25,7 +25,7 @@ class Query implements QueryInterface
 
     public function one()
     {
-        return $this->query->one();
+        return $this->query->asArray()->one();
     }
 
     public function fields($fields)
@@ -60,6 +60,20 @@ class Query implements QueryInterface
     public function offset($offset)
     {
         $this->query->offset($offset);
+
+        return $this;
+    }
+
+    public function count($field = '*')
+    {
+        $count = $this->query->count($field);
+
+        return intval($count);
+    }
+
+    public function order($fields)
+    {
+        $this->query->orderBy($fields);
 
         return $this;
     }

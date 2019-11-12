@@ -1,16 +1,14 @@
 <?php
 namespace monktan\modules\user;
 
-use monktan\common\services\BaseService;
-
-class PasswordService extends BaseService
+trait PasswordServiceTrait
 {
     public function sendModifyPasswordEmail()
     {
 
     }
 
-    public function updatePassword()
+    public function updatePassword($params)
     {
 
     }

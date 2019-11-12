@@ -9,6 +9,11 @@ interface QueryInterface
     public function one();
 
     /**
+     * @return QueryInterface
+     */
+    public function all();
+
+    /**
      * @param $fields
      * @return QueryInterface
      */
@@ -44,5 +49,14 @@ interface QueryInterface
      * @return QueryInterface
      */
     public function offset($offset);
-}
 
+    /**
+     * @return QueryInterface
+     */
+    public function count($field = '*');
+
+    /**
+     * @return QueryInterface
+     */
+    public function order($fields);
+}

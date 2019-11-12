@@ -17,7 +17,12 @@ class Model implements ModelInterface
      */
     public function m($model)
     {
-        $this->model = $model;
+        if (is_string($model)) {
+            $modelClassName = '\app\framework\common\models\\' . $model . 'Model';
+            $this->model = \Yii::$container->get($modelClassName);
+        } else {
+            $this->model = $model;
+        }
 
         return $this;
     }
@@ -34,12 +39,40 @@ class Model implements ModelInterface
 
     public function insert($data)
     {
-        $this->model->setAttributes($data);
-        $this->model->insert(false);
+        if (empty($data)) {
+            return;
+        }
+
+        if (mt_is_one_assoc_array($data)) {   //一维关联数组
+            $this->model->setAttributes($data);
+            $this->model->insert(false);
+        } elseif (isset($data[0]) && mt_is_one_assoc_array($data[0])) { //二维数组，元素是一维关联数组
+            $tableName = $this->model::tableName();
+            $columns = array_keys($data[0]);
+            $rows = [];
+            foreach ($data as $item) {
+                $rows[] = array_values($item);
+            }
+            $this->model::getDb()->createCommand()->batchInsert($tableName, $columns, $rows);
+        }
     }
 
-    public function delete($where)
+    public function update($data, $condition = '')
     {
-        return $this->model::deleteAll($where);
+        if (empty($data)) {
+            return;
+        }
+        if (empty($condition)) {
+            mt_throw_info('更新条件不能为空');
+        }
+        $this->model->updateAll($data, $condition);
+    }
+
+    public function delete($condition)
+    {
+        if (empty($condition)) {
+            mt_throw_info('删除条件不能为空');
+        }
+        return $this->model::deleteAll($condition);
     }
 }

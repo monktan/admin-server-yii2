@@ -21,6 +21,11 @@ class App
     public static $model;
 
     /**
+     * @var RequestInterface
+     */
+    public static $request;
+
+    /**
      * @var ContainerInterface
      */
     public static $container;
@@ -43,5 +48,10 @@ class App
     public static function setModel(ModelInterface $model)
     {
         self::$model = $model;
+    }
+
+    public static function setRequest(RequestInterface $request)
+    {
+        self::$request = $request;
     }
 }

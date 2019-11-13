@@ -15,9 +15,12 @@ use monktan\libraries\oauth2\repositories\AccessToken;
 use monktan\libraries\oauth2\Oauth2;
 use monktan\libraries\oauth2\Request as Psr7Request;
 use monktan\libraries\oauth2\Response as Psr7Response;
+use star\auth\services\AuthServiceTrait;
 
 class AuthService extends BaseService implements TokenAuthServiceInterface
 {
+    use AuthServiceTrait;
+
     private $accessTokenModel;
 
     private $refreshTokenModel;

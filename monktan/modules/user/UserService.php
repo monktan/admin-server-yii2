@@ -54,12 +54,15 @@ class UserService extends BaseService
 
     public function updateStatus($params)
     {
-        $updateData['status'] = $this->model::STATUS_ENABLE;
+        $updateData['status'] = $params['status'];
         $this->baseUpdate($updateData, $params['user_ids']);
     }
 
     private function baseUpdate($updateData, $userIds)
     {
+        if (empty($userIds)) {
+            mt_throw_info('用户ID为空');
+        }
         if (is_string($userIds)) {
             $userIds = [$userIds];
         }

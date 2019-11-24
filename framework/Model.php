@@ -75,4 +75,9 @@ class Model implements ModelInterface
         }
         return $this->model::deleteAll($condition);
     }
+
+    public function getOriginModel()
+    {
+        return $this->model;
+    }
 }

@@ -25,22 +25,32 @@ class UserValidate extends BaseValidate
         if (empty($params['status'])) {
             mt_throw_info('状态值为空');
         }
-        $model = mt_model('User');
-        if (! in_array($params['status'], [$model::STATSU_ENABLE, $model::STATSU_DISABLE])) {
+        $model = mt_model('User')->getOriginModel();
+        if (! in_array($params['status'], [$model::STATUS_ENABLE, $model::STATUS_DISABLE])) {
             mt_throw_info('状态值为空');
         }
-        if (! empty($params['mobile'])) {
-            mt_throw_info('手机格式错误');
+        if (empty($params['mobile'])) {
+            mt_throw_info('手机为空');
         }
-        if (! empty($params['email'])) {
+        if (! empty($params['email']) && strpos($params['email'], '@') == false) {
             mt_throw_info('邮箱格式错误');
         }
     }
 
-    public function update()
+    public function update($params)
     {
         if (empty($params['user_id'])) {
             mt_throw_info('参数user_id为空');
+        }
+        $model = mt_model('User')->getOriginModel();
+        if (! in_array($params['status'], [$model::STATUS_ENABLE, $model::STATUS_DISABLE])) {
+            mt_throw_info('状态值为空');
+        }
+        if (empty($params['mobile'])) {
+            mt_throw_info('手机为空');
+        }
+        if (! empty($params['email']) && strpos($params['email'], '@') == false) {
+            mt_throw_info('邮箱格式错误');
         }
     }
 
@@ -57,7 +67,7 @@ class UserValidate extends BaseValidate
             mt_throw_info('参数user_ids为空');
         }
 
-        $model = mt_model('User');
+        $model = mt_model('User')->getOriginModel();
         if (! in_array($params['status'], [$model::STATSU_ENABLE, $model::STATSU_DISABLE])) {
             mt_throw_info('状态值为空');
         }
@@ -68,14 +78,24 @@ class UserValidate extends BaseValidate
         if (empty($params['user_id'])) {
             mt_throw_info('参数user_id为空');
         }
+        if (empty($params['old_password'])) {
+            mt_throw_info('原密码不能为空');
+        }
         if (empty($params['confirm_password'])) {
             mt_throw_info('确认密码为空');
         }
-        if (empty($params['password'])) {
+        if (empty($params['new_password'])) {
             mt_throw_info('密码为空');
         }
-        if ($params['confirm_password'] != $params['password']) {
+        if ($params['confirm_password'] != $params['new_password']) {
             mt_throw_info('密码与确认密码不一致');
+        }
+    }
+
+    public function getAuthLogList($params)
+    {
+        if (empty($params['user_id'])) {
+            mt_throw_info('用户ID为空');
         }
     }
 }

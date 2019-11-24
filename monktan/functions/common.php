@@ -71,8 +71,9 @@ if (! function_exists('mt_model')) {
         $modelObj = \monktan\framework\App::$model;
 
         if (is_string($frameworkModel)) {
-            $classModel = '';
-            $model = [];
+            $interfaceName = 'monktan\\common\\models\\' . $frameworkModel . 'ModelInterface';
+            $m = \monktan\framework\App::$container->get($interfaceName);
+            $model = $modelObj->m($m);
         } else {
             $model = $modelObj->m($frameworkModel);
         }

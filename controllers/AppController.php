@@ -13,10 +13,10 @@ use monktan\modules\user\UserValidate;
 use yii\base\Module;
 
 /**
- * Class UserController
+ * Class AppController
  * @package app\controllers
  */
-class UserController extends BaseWebController
+class AppController extends BaseWebController
 {
     public function __construct(
         string $id,
@@ -89,18 +89,9 @@ class UserController extends BaseWebController
     public function actionUpdateEmail()
     {
         $params = $this->request->getBodyParams();
-        $userId = $params['user_id'] ?? [];
-        $this->service->updateEmail($userId, $params);
+        $this->service->updateEmail($params);
 
         return ['message' => '更新邮箱成功'];
-    }
-
-    public function actionUpdateSelfPassword()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->updateSelfPassword($params);
-
-        return ['message' => '更新密码成功'];
     }
 
     public function actionGetList()
@@ -112,53 +103,11 @@ class UserController extends BaseWebController
         return $result;
     }
 
-    public function actionGetListForOptions()
-    {
-        $params = $this->request->get();
-
-        $result = $this->service->getListForOptions($params);
-
-        return $result;
-    }
-
     public function actionDetail()
     {
         $userId = $this->request->get('user_id');
         $detail = $this->service->detail($userId);
 
         return $detail;
-    }
-
-    public function actionSendFindPasswordEmail()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->sendFindPasswordEmail($params);
-
-        return ['message' => '邮件发送成功'];
-    }
-
-    public function actionSendBindEmail()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->sendBindEmail($params);
-
-        return ['message' => '邮件发送成功'];
-    }
-
-    public function actionSendResetPasswordEmail()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->sendResetPasswordEmail($params);
-
-        return ['message' => '邮件发送成功'];
-    }
-
-    public function actionGetAuthLogList()
-    {
-        $params = $this->request->get();
-
-        $result = $this->service->getLogList($params);
-
-        return $result;
     }
 }

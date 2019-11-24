@@ -8,8 +8,8 @@
 
 namespace app\controllers;
 
-use monktan\modules\user\UserService;
-use monktan\modules\user\UserValidate;
+use monktan\modules\log\LogService;
+use monktan\modules\log\LogValidate;
 use yii\base\Module;
 
 /**
@@ -21,13 +21,29 @@ class LogController extends BaseWebController
     public function __construct(
         string $id,
         Module $module,
-        Log $userService,
-        UserValidate $userValidate,
+        LogService $logService,
+        LogValidate $logValidate,
         array $config = []
     ) {
-        $this->service = $userService;
-        $this->validate = $userValidate;
+        $this->service = $logService;
+        $this->validate = $logValidate;
 
         parent::__construct($id, $module, $config);
+    }
+
+    public function actionGetList()
+    {
+        $params = $this->request->get();
+
+        $result = $this->service->getList($params);
+
+        return $result;
+    }
+
+    public function actionGetModules()
+    {
+        $result = $this->service->getModules();
+
+        return $result;
     }
 }

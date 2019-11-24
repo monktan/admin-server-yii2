@@ -15,4 +15,6 @@ interface ModelInterface
     public function update($data, $condition = '');
 
     public function delete($condition);
+
+    public function getOriginModel();
 }

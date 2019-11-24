@@ -18,7 +18,7 @@ class Query implements QueryInterface
 
     public function where($condition, $params = [])
     {
-        $this->query->where($condition, $params);
+        $this->query->andWhere($condition, $params);
 
         return $this;
     }
@@ -47,7 +47,7 @@ class Query implements QueryInterface
 
     public function all()
     {
-        return $this->query->all();
+        return $this->query->asArray()->all();
     }
 
     public function limit($limit)
@@ -76,5 +76,10 @@ class Query implements QueryInterface
         $this->query->orderBy($fields);
 
         return $this;
+    }
+
+    public function sql()
+    {
+        return $this->query->createCommand()->getRawSql();
     }
 }

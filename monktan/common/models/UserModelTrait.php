@@ -27,4 +27,21 @@ trait UserModelTrait
 
         return $user;
     }
+
+    public function getStatusText($status)
+    {
+        $text = '';
+        switch ($status) {
+            case self::STATUS_ENABLE:
+                $text = '已启用';
+                break;
+            case self::STATUS_DISABLE:
+                $text = '已禁用';
+                break;
+            default:
+                break;
+        }
+
+        return $text;
+    }
 }

@@ -17,4 +17,11 @@ return [
         'passphrase' => '',
         'encryption_key' => 'star',
     ],
+    'email' => [
+        'username' => '453539025@qq.com',
+        'password' => 'abc123!@#',
+        'from' => 'monktan',
+        'smtp_host' => 'ssl://smtp.qq.com',
+        'smtp_port' => 465,
+    ]
 ];

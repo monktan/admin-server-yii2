@@ -59,4 +59,9 @@ interface QueryInterface
      * @return QueryInterface
      */
     public function order($fields);
+
+    /**
+     * @return string
+     */
+    public function sql();
 }

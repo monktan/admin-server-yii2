@@ -1,12 +1,12 @@
 <?php
 namespace app\framework\common\models;
 
-use monktan\common\models\UserModelInterface;
-use monktan\common\models\UserModelTrait;
+use monktan\common\models\LogModelInterface;
+use monktan\common\models\LogModelTrait;
 
-class UserModel extends BaseModel implements UserModelInterface
+class LogModel extends BaseModel implements LogModelInterface
 {
-    use UserModelTrait;
+    use LogModelTrait;
 
     public function rules()
     {
@@ -23,6 +23,6 @@ class UserModel extends BaseModel implements UserModelInterface
 
     public static function tableName()
     {
-        return 'ad_user';
+        return 'ad_log';
     }
 }

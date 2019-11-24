@@ -12,17 +12,23 @@ Yii::setAlias('@app', __DIR__);
 \Yii::$container->set(monktan\framework\ContainerInterface::class, app\framework\Container::class);
 \Yii::$container->set(monktan\framework\ConfigInterface::class, app\framework\Config::class);
 \Yii::$container->set(monktan\framework\db\ModelInterface::class, app\framework\Model::class);
+\Yii::$container->set(monktan\framework\RequestInterface::class, app\framework\Request::class);
 
 \Yii::$container->set(\monktan\common\models\ClientModelInterface::class, app\framework\common\models\ClientModel::class);
-\Yii::$container->set(\monktan\libraries\oauth2\storages\ClientModelInterface::class, app\framework\common\models\ClientModel::class);
 \Yii::$container->set(\monktan\common\models\UserModelInterface::class, \app\framework\common\models\UserModel::class);
-\Yii::$container->set(\monktan\libraries\oauth2\storages\UserModelInterface::class, \app\framework\common\models\UserModel::class);
-\Yii::$container->set(\monktan\common\models\AccessTokenModelInterface::class, \app\framework\common\models\AccessTokenModel::class);
-\Yii::$container->set(\monktan\libraries\oauth2\storages\AccessTokenModelInterface::class, \app\framework\common\models\AccessTokenModel::class);
+\Yii::$container->set(\monktan\common\models\AuthLogModelInterface::class, \app\framework\common\models\AuthLogModel::class);
 \Yii::$container->set(\monktan\common\models\RefreshTokenModelInterface::class, \app\framework\common\models\RefreshTokenModel::class);
+\Yii::$container->set(\monktan\common\models\AccessTokenModelInterface::class, \app\framework\common\models\AccessTokenModel::class);
+
+\Yii::$container->set(\monktan\libraries\oauth2\storages\AccessTokenModelInterface::class, \app\framework\common\models\AccessTokenModel::class);
 \Yii::$container->set(\monktan\libraries\oauth2\storages\RefreshTokenModelInterface::class, \app\framework\common\models\RefreshTokenModel::class);
+\Yii::$container->set(\monktan\libraries\oauth2\storages\UserModelInterface::class, \app\framework\common\models\UserModel::class);
+\Yii::$container->set(\monktan\libraries\oauth2\storages\ClientModelInterface::class, app\framework\common\models\ClientModel::class);
+
+
 
 \monktan\framework\App::setApp(\Yii::$container->get(monktan\framework\AppInterface::class));
 \monktan\framework\App::setContainer(\Yii::$container->get(monktan\framework\ContainerInterface::class));
 \monktan\framework\App::setConfig(\Yii::$container->get(monktan\framework\ConfigInterface::class));
 \monktan\framework\App::setModel(\Yii::$container->get(monktan\framework\db\ModelInterface::class));
+\monktan\framework\App::setRequest(\Yii::$container->get(monktan\framework\RequestInterface::class));

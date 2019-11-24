@@ -3,30 +3,25 @@ namespace monktan\modules\user;
 
 trait UserListServiceTrait
 {
-    public function getList($params)
-    {
-        $result['data'] = $this->getListData($params);
-        $result['count'] = $this->getListCount($params);
-
-        return $result;
-    }
-
     public function getListData($params)
     {
-        $pageSize = $params['page_size'] ? intval($params['page_size']) : 20;
-        $page = $params['page'] ? intval($params['page']) : 1;
+        $pageSize = !empty($params['page_size']) ? intval($params['page_size']) : 20;
+        $page = !empty($params['page']) ? intval($params['page']) : 1;
         $offset = ($page - 1) * $pageSize;
         $fields = ['user_id', 'real_name', 'username', 'mobile',
             'email', 'status', 'remark', 'create_time', 'update_time', 'create_by', 'update_by'];
         $orderBy = 'id desc';
+
         $data = $this->getListQuery($params)->fields($fields)->offset($offset)
             ->limit($pageSize)
             ->order($orderBy)
             ->all();
 
-        foreach ($data as $k => $item) {
-
-        }
+        $model = $this->model;
+        $data = $this->rebuildListData($data, function($user) use ($model) {
+            $user['status_text'] = $this->model->getStatusText($user['status']);
+            return $user;
+        });
 
         return $data;
     }
@@ -40,7 +35,7 @@ trait UserListServiceTrait
 
     public function getListQuery($params)
     {
-        $query = mt_model($this->model)->newQuery()->where(['is_deleted'=>$this->model::STATUS_ENABLE]);
+        $query = mt_model($this->model)->newQuery()->where(['is_deleted'=>$this->model::NORMAL]);
 
         if (! empty($params['real_name'])) {
             $query->where(['like', 'real_name', $params['real_name']]);
@@ -52,10 +47,6 @@ trait UserListServiceTrait
 
         if (! empty($params['email'])) {
             $query->where(['like', 'email', $params['email']]);
-        }
-
-        if (! empty($params['status'])) {
-            $query->where(['status'=>$params['status']]);
         }
 
         if (! empty($params['status'])) {
@@ -75,5 +66,21 @@ trait UserListServiceTrait
         }
 
         return $query;
+    }
+
+    public function getListForOptions($params)
+    {
+        $pageSize = !empty($params['page_size']) ? intval($params['page_size']) : 20;
+        $page = !empty($params['page']) ? intval($params['page']) : 1;
+        $offset = ($page - 1) * $pageSize;
+        $fields = ['user_id', 'real_name', 'username'];
+        $orderBy = 'id desc';
+
+        $data = $this->getListQuery($params)->fields($fields)->offset($offset)
+            ->limit($pageSize)
+            ->order($orderBy)
+            ->all();
+
+        return $data;
     }
 }

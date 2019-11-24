@@ -17,6 +17,6 @@ class AccessTokenModel extends BaseModel implements AccessTokenModelInterface
 
     public static function tableName()
     {
-        return 'access_token';
+        return 'ad_access_token';
     }
 }

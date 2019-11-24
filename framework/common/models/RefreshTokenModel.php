@@ -10,7 +10,7 @@ class RefreshTokenModel extends BaseModel implements RefreshTokenModelInterface
 
     public static function tableName()
     {
-        return 'refresh_token';
+        return 'ad_refresh_token';
     }
 
     public function rules()

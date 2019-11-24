@@ -18,7 +18,24 @@ class AuthValidate extends BaseValidate
         if (! isset($params['grant_type']) || $params['grant_type'] != 'password') {
             mt_throw_info('grant_type参数错误');
         }
+        if (empty($params['captcha'])) {
+            mt_throw_info('验证码为空');
+        }
+        if (empty($params['captcha_id'])) {
+            mt_throw_info('参数captcha_id为空');
+        }
 
         return true;
+    }
+
+    public function refreshToken($params)
+    {
+        if (! isset($params['grant_type']) || $params['grant_type'] != 'refresh_token') {
+            mt_throw_info('grant_type参数错误');
+        }
+
+        if (empty($params['refresh_token'])) {
+            mt_throw_info('refresh_token为空');
+        }
     }
 }

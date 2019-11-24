@@ -7,28 +7,31 @@ use League\OAuth2\Server\AuthorizationValidators\BearerTokenValidator;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\ResourceServer;
 use monktan\common\models\AccessTokenModelInterface;
+use monktan\common\models\AuthLogModelInterface;
 use monktan\common\models\RefreshTokenModelInterface;
 use monktan\common\models\UserModelInterface;
 use monktan\common\services\BaseService;
 use monktan\common\services\TokenAuthServiceInterface;
+use monktan\framework\App;
 use monktan\libraries\oauth2\repositories\AccessToken;
 use monktan\libraries\oauth2\Oauth2;
 use monktan\libraries\oauth2\Request as Psr7Request;
 use monktan\libraries\oauth2\Response as Psr7Response;
-use star\auth\services\AuthServiceTrait;
+use monktan\libraries\SnowFlake;
 
 class AuthService extends BaseService implements TokenAuthServiceInterface
 {
-    use AuthServiceTrait;
-
     private $accessTokenModel;
 
     private $refreshTokenModel;
 
     private $accessTokenRepository;
 
+    private $logModel;
+
     public function __construct(
         UserModelInterface $userModel,
+        AuthLogModelInterface $logModel,
         AccessTokenModelInterface $accessTokenModel,
         RefreshTokenModelInterface $refreshTokenModel,
         AccessToken $accessToken
@@ -37,6 +40,7 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
         $this->accessTokenModel = $accessTokenModel;
         $this->refreshTokenModel = $refreshTokenModel;
         $this->accessTokenRepository = $accessToken;
+        $this->logModel = $logModel;
     }
 
     public function login($username, $password)
@@ -45,6 +49,7 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
         $params['password'] = $password;
 
         $result = $this->createNewAccessToken($params);
+        $this->log(AuthLogModelInterface::LOG_TYPE_LOGIN, $username);
         $this->clearExpiredTokens();
 
         return $result;
@@ -84,6 +89,7 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
     public function logout()
     {
         $this->revokeAccessToken();
+        $this->log(AuthLogModelInterface::LOG_TYPE_LOGOUT);
     }
 
     public function refreshToken()
@@ -138,5 +144,23 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
         $userInfo = mt_model($this->model)->newQuery()->where(['user_id'=>$sessionData['oauth_user_id']])->one();
         $sessionData = array_merge($userInfo, $sessionData);
         $_SERVER['session_data'] = $sessionData;
+    }
+
+    public function log($type, $userName = '')
+    {
+        $log = [];
+        if (! empty($userName)) {
+            $user = mt_model($this->model)->newQuery()->where(['username'=>$userName])->one();
+            $log['user_id'] = $user['user_id'] ?? '';
+        } else {
+            $log['user_id'] = mt_session_data('user_id');
+        }
+
+        $log['type'] = $type;
+        $log['ip'] = App::$request->ip();
+        $log['agent'] = App::$request->userAgent();
+        $log['log_id'] = SnowFlake::getInstance()->generateId();
+
+        mt_model('AuthLog')->insert($log);
     }
 }

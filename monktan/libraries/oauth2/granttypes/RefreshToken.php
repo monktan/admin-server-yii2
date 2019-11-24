@@ -5,6 +5,7 @@ namespace monktan\libraries\oauth2\granttypes;
 
 use League\OAuth2\Server\CryptKey;
 use monktan\libraries\oauth2\repositories\AccessToken;
+use monktan\libraries\oauth2\repositories\RefreshToken as RefreshTokenRepository;
 use monktan\libraries\oauth2\repositories\Client;
 use monktan\libraries\oauth2\repositories\Scope;
 use monktan\libraries\oauth2\repositories\User;
@@ -16,7 +17,7 @@ class RefreshToken extends Base
         Scope $scope,
         AccessToken $accessToken,
         User $user,
-        RefreshToken $refreshToken
+        RefreshTokenRepository $refreshToken
     ) {
         $this->client = $client;
         $this->scope = $scope;

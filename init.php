@@ -6,7 +6,7 @@
 
 require __DIR__ . '/const.php';
 require __DIR__ . '/../vendor/vendor/autoload.php';
-require __DIR__ . '/../vendor/vendor/yiisoft/yii2/Yii.php';
+require_once __DIR__ . '/../vendor/vendor/yiisoft/yii2/Yii.php';
 require __DIR__ . '/bootstrap.php';
 require __DIR__ . '/monktan/functions/common.php';
 

@@ -2,8 +2,10 @@
 
 return [
     //权限
-    'POST access-token' => 'auth/login',
     'DELETE access-token' => 'auth/logout',
+    'GET access-token' => 'auth/logout',
+    'POST access-token' => 'auth/login',
     'POST refresh-token' => 'auth/refresh-token',
-    'GET captcha' => 'auth/captcha',
+    'GET captcha' => 'common/captcha',
+    'GET current-user' => 'user/user-info',
 ];

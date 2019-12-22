@@ -43,10 +43,11 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
         $this->logModel = $logModel;
     }
 
-    public function login($username, $password)
+    public function login($username, $password, $grantType)
     {
         $params['username'] = $username;
         $params['password'] = $password;
+        $params['grant_type'] = $grantType;
 
         $result = $this->createNewAccessToken($params);
         $this->log(AuthLogModelInterface::LOG_TYPE_LOGIN, $username);
@@ -92,8 +93,9 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
         $this->log(AuthLogModelInterface::LOG_TYPE_LOGOUT);
     }
 
-    public function refreshToken()
+    public function refreshToken($params)
     {
+        $_POST = array_merge($params, $_POST);
         $_POST['client_id'] = mt_config('oauth2.self_client_id');
         $_POST['client_secret'] =mt_config('oauth2.self_client_secret');
         $psr7Request = Psr7Request::fromGlobals();

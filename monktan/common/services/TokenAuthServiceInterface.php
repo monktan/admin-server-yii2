@@ -11,5 +11,5 @@ interface TokenAuthServiceInterface
 
     public function auth();
 
-    public function refreshToken();
+    public function refreshToken($params);
 }

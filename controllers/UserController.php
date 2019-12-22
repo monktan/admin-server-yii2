@@ -31,6 +31,13 @@ class UserController extends BaseWebController
         parent::__construct($id, $module, $config);
     }
 
+    public function actionUserInfo()
+    {
+        $result = $this->service->getCurrentUserInfo();
+
+        return $result;
+    }
+
     public function actionCreate()
     {
         $params = $this->request->post();

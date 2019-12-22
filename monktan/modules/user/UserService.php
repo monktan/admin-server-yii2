@@ -139,4 +139,12 @@ class UserService extends BaseService
 
         return $users[0] ?? [];
     }
+
+    public function getCurrentUserInfo()
+    {
+        $userInfo['username'] = mt_session_data('username');
+        $userInfo['real_name'] = mt_session_data('real_name');
+
+        return $userInfo;
+    }
 }

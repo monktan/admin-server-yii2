@@ -35,8 +35,9 @@ class AuthController extends BaseWebController
     {
         $username = $this->request->post('username', '');
         $password = $this->request->post('password', '');
+        $grantType = $this->request->post('grant_type', '');
 
-        $result = $this->service->login($username, $password);
+        $result = $this->service->login($username, $password, $grantType);
 
         return $result;
     }
@@ -50,7 +51,7 @@ class AuthController extends BaseWebController
 
     public function actionRefreshToken()
     {
-        $result = $this->service->refreshToken();
+        $result = $this->service->refreshToken($this->request->post());
 
         return $result;
     }

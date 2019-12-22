@@ -5,7 +5,7 @@ return [
         'name' => '登录-成功',
         'uri' => '/access-token',
         'method' => 'post',
-        'body_type' => 'x-www-form-urlencoded',
+        'body_type' => 'raw',
         'body' => [
             'username' => 'guojueneng',
             'password' => '1234567',
@@ -26,7 +26,7 @@ return [
             'r' => 'auth/login'
         ],
         'method' => 'post',
-        'body_type' => 'x-www-form-urlencoded',
+        'body_type' => 'raw',
         'body' => [
             'username' => 'guojueneng',
             'password' => '12345678',

@@ -5,10 +5,7 @@ $alias = [
 return [
     'success' => [
         'name' => '刷新token-成功',
-        'uri' => '/index.php',
-        'query_params' => [
-            'r' => 'auth/refresh-token'
-        ],
+        'uri' => '/refresh-token',
         'method' => 'post',
         'body_type' => 'x-www-form-urlencoded',
         'body' => [
@@ -27,10 +24,7 @@ return [
     ],
     'failed' => [
         'name' => '刷新token-失败',
-        'uri' => '/index.php',
-        'query_params' => [
-            'r' => 'auth/refresh-token'
-        ],
+        'uri' => '/refresh-token',
         'method' => 'post',
         'body_type' => 'x-www-form-urlencoded',
         'body' => [

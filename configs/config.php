@@ -46,12 +46,12 @@ return [
             'format' => yii\web\Response::FORMAT_JSON,
             'charset' => 'UTF-8',
         ],
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'enableStrictParsing' => true,
-//            'rules' => require __DIR__ . '/route_rules.php',
-//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => true,
+            'rules' => require __DIR__ . '/route_rules.php',
+        ],
         'db' => ORIGIN_CONFIGS['db']
     ],
     'params' => $params,

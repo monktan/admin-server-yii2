@@ -3,10 +3,7 @@ $alias = [];
 return [
     'success' => [
         'name' => '登录-成功',
-        'uri' => '/index.php',
-        'query_params' => [
-            'r' => 'auth/login'
-        ],
+        'uri' => '/access-token',
         'method' => 'post',
         'body_type' => 'x-www-form-urlencoded',
         'body' => [
@@ -24,7 +21,7 @@ return [
     ],
     'failed' => [
         'name' => '登录-失败',
-        'uri' => '/index.php',
+        'uri' => '/access-token',
         'query_params' => [
             'r' => 'auth/login'
         ],

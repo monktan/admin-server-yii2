@@ -72,7 +72,7 @@ class UserService extends BaseService
     public function update($userId, $params)
     {
         $users = mt_model($this->model)->newQuery()
-            ->fields(['user_id', 'real_name', 'mobile', 'email', 'status'])
+            ->fields(['user_id', 'real_name', 'mobile', 'email', 'status', 'remark'])
             ->where(['in', 'user_id', [$userId]])
             ->all();
         $updateData['real_name'] = $params['real_name'] ?? '';
@@ -137,7 +137,7 @@ class UserService extends BaseService
         $user = $this->rebuildItem($user);
         $user['status_text'] = $this->model->getStatusText($user['status']);
 
-        return $users[0] ?? [];
+        return $user;
     }
 
     public function getCurrentUserInfo()

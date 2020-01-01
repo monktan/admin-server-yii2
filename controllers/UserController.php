@@ -47,11 +47,9 @@ class UserController extends BaseWebController
         return ['message' => '创建成功'];
     }
 
-    public function actionUpdate()
+    public function actionUpdate($userId)
     {
         $params = $this->request->getBodyParams();
-        $userId = $this->request->get('user_id', '');
-
         $this->service->update($userId, $params);
 
         return ['message' => '更新成功'];
@@ -75,22 +73,19 @@ class UserController extends BaseWebController
         return ['message' => '更新状态成功'];
     }
 
-    public function actionUpdatePassword()
+    public function actionUpdatePassword($userId)
     {
         $params = $this->request->getBodyParams();
-        $userId = $this->request->get('user_id');
         $this->service->updatePassword($userId, $params);
 
         return ['message' => '更新密码成功'];
     }
 
-    public function actionResetPassword()
+    public function actionResetPassword($userId)
     {
-        $params = $this->request->getBodyParams();
-        $userIds = $params['user_ids'] ?? [];
-        $this->service->updateStatus($userIds, $params);
+        $this->service->resetPassword($userId);
 
-        return ['message' => '更新状态成功'];
+        return ['message' => '重置成功'];
     }
 
     public function actionUpdateEmail()
@@ -128,9 +123,8 @@ class UserController extends BaseWebController
         return $result;
     }
 
-    public function actionDetail()
+    public function actionDetail($userId)
     {
-        $userId = $this->request->get('user_id');
         $detail = $this->service->detail($userId);
 
         return $detail;
@@ -160,10 +154,10 @@ class UserController extends BaseWebController
         return ['message' => '邮件发送成功'];
     }
 
-    public function actionGetAuthLogList()
+    public function actionGetAuthLogList($userId)
     {
         $params = $this->request->get();
-
+        $params['user_id'] = $userId;
         $result = $this->service->getLogList($params);
 
         return $result;

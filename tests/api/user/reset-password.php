@@ -1,23 +1,24 @@
 <?php
 $alias = [
-    'login' => 'auth/login@success'
+    'login' => 'auth/login@success',
+    'list' => 'user/list@success',
 ];
 return [
     'success' => [
-        'name' => '获取登录用户信息-成功',
-        'uri' => '/current-user',
+        'name' => '重置密码-成功',
+        'uri' => '/user/'. get_list_user_id('list', $alias) . '/random-password',
         'headers' => [
             'Authorization' => getd($alias['login'], 'response_body.access_token')
         ],
-        'method' => 'get',
+        'method' => 'put',
         'dependencies' => [
-            $alias['login']
+            $alias['login'],
+            $alias['list'],
         ],
-        'is_run_dependency' => true,
         'tests' => function ($body, $headers) {
             assertJson($body);
             $jsonBody = json_decode($body, true);
-            assertArrayHasKey('username', $jsonBody);
+            assertEquals('重置密码成功', $jsonBody['message']);
         }
     ]
 ];

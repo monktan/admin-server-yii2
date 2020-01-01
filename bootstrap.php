@@ -19,6 +19,8 @@ Yii::setAlias('@app', __DIR__);
 \Yii::$container->set(\monktan\common\models\AuthLogModelInterface::class, \app\framework\common\models\AuthLogModel::class);
 \Yii::$container->set(\monktan\common\models\RefreshTokenModelInterface::class, \app\framework\common\models\RefreshTokenModel::class);
 \Yii::$container->set(\monktan\common\models\AccessTokenModelInterface::class, \app\framework\common\models\AccessTokenModel::class);
+\Yii::$container->set(\monktan\common\models\LogModelInterface::class, \app\framework\common\models\LogModel::class);
+\Yii::$container->set(\monktan\common\models\EmailCodeModelInterface::class, \app\framework\common\models\EmailCodeModel::class);
 
 \Yii::$container->set(\monktan\libraries\oauth2\storages\AccessTokenModelInterface::class, \app\framework\common\models\AccessTokenModel::class);
 \Yii::$container->set(\monktan\libraries\oauth2\storages\RefreshTokenModelInterface::class, \app\framework\common\models\RefreshTokenModel::class);

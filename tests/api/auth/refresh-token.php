@@ -12,7 +12,9 @@ return [
             'refresh_token' => getd($alias['login'], 'response_body.refresh_token'),
             'grant_type' => 'refresh_token',
         ],
-        'is_run_dependency' => true,
+        'after_dependencies' => [
+            $alias['login'],
+        ],
         'dependencies' => [
             $alias['login']
         ],

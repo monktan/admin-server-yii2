@@ -17,8 +17,6 @@ trait PasswordServiceTrait
         $updateData['password'] = password_hash($params['new_password'], PASSWORD_DEFAULT);
         $this->baseUpdate($updateData, [$userId]);
         $this->logUpdate([], [$user]);
-        //退出登录
-        $this->authService->logout();
     }
 
     public function updateSelfPassword($params)
@@ -47,13 +45,18 @@ trait PasswordServiceTrait
             ->newQuery()
             ->where(['user_id'=>$userId])
             ->one();
+
+        if (empty($user['email'])) {
+            mt_throw_info('请先设置邮箱');
+        }
         $password = $this->genRandomPassword();
         $updateData['password'] = password_hash($password, PASSWORD_DEFAULT);
 
         $this->baseUpdate($updateData, [$userId]);
         $this->logUpdate([], [$user]);
 
-        $this->sendResetPasswordEmail();
+        $params['email'] = $user['email'];
+        $this->sendResetPasswordEmail($params);
     }
 
     private function genRandomPassword()

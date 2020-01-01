@@ -28,8 +28,8 @@ class BaseService
             $item['create_username'] = $user['username'] ?? '';
             $item['create_real_name'] = $user['real_name'] ?? '';
         }
-        if (! empty($item['user_id'])) {
-            $user = mt_model('User')->newQuery()->where(['user_id'=>$item['create_by']])->one();
+        if (! empty($item['user_id']) && empty($item['real_name'])) {
+            $user = mt_model('User')->newQuery()->where(['user_id'=>$item['user_id']])->one();
             $item['username'] = $user['username'] ?? '';
             $item['real_name'] = $user['real_name'] ?? '';
         }

@@ -1,6 +1,7 @@
 <?php
 namespace monktan\modules\log;
 
+use monktan\common\models\LogModelInterface;
 use monktan\common\services\BaseService;
 use monktan\framework\App;
 use monktan\libraries\SnowFlake;
@@ -10,10 +11,14 @@ class LogService extends BaseService
     use LogListServiceTrait;
     use ModuleTrait;
 
+    public function __construct(LogModelInterface $logModel)
+    {
+        $this->model = $logModel;
+    }
+
     public function log($data)
     {
         $insertData = $this->buildLogData($data);
-
 
         mt_model($this->model)->insert($insertData);
     }

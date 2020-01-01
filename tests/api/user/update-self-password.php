@@ -1,36 +1,31 @@
 <?php
 $alias = [
     'login' => 'auth/login@success',
-    'new-del' => 'user/create@for-delete',
-    'list-del' => 'user/list@for-delete',
     'list' => 'user/list@success',
 ];
-
 return [
     'success' => [
-        'name' => '删除用户-成功',
-        'uri' => '/users',
-        'is_run_dependency' => true,
+        'name' => '修改密码-成功',
+        'uri' => '/user/password',
         'headers' => [
             'Authorization' => getd($alias['login'], 'response_body.access_token')
         ],
+        'method' => 'put',
         'body' => [
-            'user_ids' => get_list_user_ids('list-del', $alias),
+            'old_password' => 1234567,
+            'confirm_password' => 1234567,
+            'new_password' => 1234567,
         ],
-        'body_type' => 'x-www-form-urlencoded',
-        'method' => 'delete',
         'after_dependencies' => [
-            $alias['list'],
+            $alias['login'],
         ],
         'dependencies' => [
             $alias['login'],
-            $alias['new-del'],
-            $alias['list-del'],
         ],
         'tests' => function ($body, $headers) {
             assertJson($body);
             $jsonBody = json_decode($body, true);
-            assertEquals('删除成功', $jsonBody['message']);
+            assertEquals('更新密码成功', $jsonBody['message']);
         }
     ]
 ];

@@ -6,6 +6,7 @@ return [
         'app\controllers\AuthController::login',
         'app\controllers\AuthController::refresh-token',
         'app\controllers\UserController::send-find-password-email',
+        'app\controllers\CommonController::captcha',
     ],
     'email' => ORIGIN_CONFIGS['email'],
 ];

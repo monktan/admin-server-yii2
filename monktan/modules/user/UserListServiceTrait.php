@@ -54,7 +54,7 @@ trait UserListServiceTrait
         }
 
         if (! empty($params['username'])) {
-            $query->where(['username'=>$params['username']]);
+            $query->where(['like', 'username', $params['username']]);
         }
 
         if (! empty($params['create_time_begin'])) {

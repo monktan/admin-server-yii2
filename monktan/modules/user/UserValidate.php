@@ -39,9 +39,6 @@ class UserValidate extends BaseValidate
 
     public function update($params)
     {
-        if (empty($params['user_id'])) {
-            mt_throw_info('参数user_id为空');
-        }
         $model = mt_model('User')->getOriginModel();
         if (! in_array($params['status'], [$model::STATUS_ENABLE, $model::STATUS_DISABLE])) {
             mt_throw_info('状态值为空');
@@ -75,9 +72,6 @@ class UserValidate extends BaseValidate
 
     public function updatePassword($params)
     {
-        if (empty($params['user_id'])) {
-            mt_throw_info('参数user_id为空');
-        }
         if (empty($params['old_password'])) {
             mt_throw_info('原密码不能为空');
         }
@@ -94,8 +88,5 @@ class UserValidate extends BaseValidate
 
     public function getAuthLogList($params)
     {
-        if (empty($params['user_id'])) {
-            mt_throw_info('用户ID为空');
-        }
     }
 }

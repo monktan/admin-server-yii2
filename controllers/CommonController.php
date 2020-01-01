@@ -33,6 +33,6 @@ class CommonController extends BaseWebController
 
     public function actionCaptcha()
     {
-        $this->service->captcha();
+        return $this->service->captcha();
     }
 }

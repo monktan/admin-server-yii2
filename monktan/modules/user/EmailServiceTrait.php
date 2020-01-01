@@ -1,45 +1,57 @@
 <?php
 namespace monktan\modules\user;
 
+use app\monktan\common\helpers\UrlHelper;
 use monktan\libraries\Email;
 
 trait EmailServiceTrait
 {
     public function sendFindPasswordEmail($params)
     {
+        $user = $user = $this->getUserByEmail($params['email']);
         $title = '找回密码';
         $code = Email::genRandomCode(32, 'string');
-        $content = $code;
+        $content = UrlHelper::buildUrlWithEmailCode($code, UrlHelper::FIND_PASSWORD);
         $receivers = [$params['email']];
         Email::send($title, $content, $receivers);
 
         $expiredTime = time() + 3600;
-        $this->saveCode($params['email'], $code, 2, $expiredTime);
+        $emailCodeData = [
+            'email' => $params['email'],
+            'code' => $code,
+            'type' => 3,
+            'expired_time' => $expiredTime,
+            'user_id' => $user['user_id'],
+        ];
+        $this->saveCode($emailCodeData);
     }
 
     public function sendResetPasswordEmail($params)
     {
         $title = '重置密码';
-        $code = Email::genRandomCode(32, 'string');
-        $content = $code;
-        $receivers = [$params['email']];
-        Email::send($title, $content, $receivers);
-
-        $expiredTime = time() + 3600;
-        $this->saveCode($params['email'], $code, 3, $expiredTime);
+        //
     }
 
     public function sendBindEmail($params)
     {
+        $user = $this->getUserByEmail($params['email']);
+
         $title = '邮箱绑定验证';
         $code = Email::genRandomCode();
-        $content = $code;
+        $content = UrlHelper::buildUrlWithEmailCode($code, UrlHelper::BIND_EMAIL);
         $receivers = [$params['email']];
 
         Email::send($title, $content, $receivers);
 
         $expiredTime = time() + 3600;
-        $this->saveCode($params['email'], $code, 1, $expiredTime);
+        $emailCodeData = [
+            'email' => $params['email'],
+            'code' => $code,
+            'type' => 1,
+            'expired_time' => $expiredTime,
+            'user_id' => $user['user_id'],
+        ];
+        $this->saveCode($emailCodeData);
     }
 
     public function updateEmail($userId, $params)
@@ -53,12 +65,13 @@ trait EmailServiceTrait
         $this->baseUpdate($updateData, [$userId]);
     }
 
-    public function saveCode($email, $code, $type, $expiredTime)
+    public function saveCode($params)
     {
-        $insertData['email'] = $email;
-        $insertData['code'] = $code;
-        $insertData['type'] = $type;
-        $insertData['expired_time'] = $expiredTime;
+        $insertData['email'] = $params['email'];
+        $insertData['code'] = $params['code'];
+        $insertData['type'] = $params['type'];
+        $insertData['expired_time'] = $params['expired_time'];
+        $insertData['user_id'] = $params['user_id'];
 
         mt_model('EmailCode')->insert($insertData);
     }
@@ -71,9 +84,23 @@ trait EmailServiceTrait
             ->value('id');
 
         if (empty($id)) {
-            mt_model('验证码不正确或已过期');
+            mt_model('邮箱验证码不正确或已过期');
         }
 
         mt_model('EmailCode')->update(['status'=>1], ['id'=>$id]);
+    }
+
+    public function getUserByEmail($email)
+    {
+        $user = mt_model($this->model)
+            ->newQuery()
+            ->where(['email'=>$email])
+            ->one();
+
+        if (empty($user)) {
+            mt_throw_info("邮箱{$email}未绑定账户");
+        }
+
+        return $user;
     }
 }

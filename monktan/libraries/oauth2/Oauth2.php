@@ -18,7 +18,7 @@ class Oauth2
             mt_throw_info("类{$modeClass}不存在");
         }
 
-        $instance = App::$container->get($modeClass);
+        $instance = App::container()->get($modeClass);
 
         return $instance;
     }

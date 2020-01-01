@@ -159,8 +159,8 @@ class AuthService extends BaseService implements TokenAuthServiceInterface
         }
 
         $log['type'] = $type;
-        $log['ip'] = App::$request->ip();
-        $log['agent'] = App::$request->userAgent();
+        $log['ip'] = App::request()->ip();
+        $log['agent'] = App::request()->userAgent();
         $log['log_id'] = SnowFlake::getInstance()->generateId();
 
         mt_model('AuthLog')->insert($log);

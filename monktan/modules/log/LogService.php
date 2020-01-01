@@ -25,10 +25,10 @@ class LogService extends BaseService
 
     protected function buildLogData($data)
     {
-        $actionName = App::$app->actionName();
-        $controllerName = App::$app->controllerName();
-        $ip = App::$request->ip();
-        $userAgent = App::$request->userAgent();
+        $actionName = App::app()->actionName();
+        $controllerName = App::app()->controllerName();
+        $ip = App::request()->ip();
+        $userAgent = App::request()->userAgent();
         $moduleTitle = $this->getModuleTitle($controllerName);
         $actionTitle = $this->getActionTitle($controllerName, $actionName);
         $userId = mt_session_data('user_id');

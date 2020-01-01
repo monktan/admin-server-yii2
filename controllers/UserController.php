@@ -81,6 +81,14 @@ class UserController extends BaseWebController
         return ['message' => '更新密码成功'];
     }
 
+    public function actionUpdatePasswordByEmailCode()
+    {
+        $params = $this->request->getBodyParams();
+        $this->service->updatePasswordByEmailCode($params);
+
+        return ['message' => '更新密码成功'];
+    }
+
     public function actionResetPassword($userId)
     {
         $this->service->resetPassword($userId);

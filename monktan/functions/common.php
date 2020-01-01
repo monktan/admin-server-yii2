@@ -2,7 +2,7 @@
 if (! function_exists('mt_config')) {
     function mt_config($key)
     {
-        $config = \monktan\framework\App::$config->get($key);
+        $config = \monktan\framework\App::config()->get($key);
 
         return $config;
     }
@@ -68,11 +68,11 @@ if (! function_exists('mt_model')) {
      */
     function mt_model($frameworkModel)
     {
-        $modelObj = \monktan\framework\App::$model;
+        $modelObj = \monktan\framework\App::model();
 
         if (is_string($frameworkModel)) {
             $interfaceName = 'monktan\\common\\models\\' . $frameworkModel . 'ModelInterface';
-            $m = \monktan\framework\App::$container->get($interfaceName);
+            $m = \monktan\framework\App::container()->get($interfaceName);
             $model = $modelObj->m($m);
         } else {
             $model = $modelObj->m($frameworkModel);

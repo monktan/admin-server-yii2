@@ -5,53 +5,22 @@ use monktan\framework\db\ModelInterface;
 
 class App
 {
-    /**
-     * @var ConfigInterface
-     */
-    public static $config;
+    private static $map = [
+        'app' => \monktan\framework\AppInterface::class,
+        'container' => \monktan\framework\ContainerInterface::class,
+        'config' => \monktan\framework\ConfigInterface::class,
+        'model' => \monktan\framework\db\ModelInterface::class,
+        'request' => \monktan\framework\RequestInterface::class,
+        'cache' => \monktan\framework\CacheInterface::class,
+    ];
 
-    /**
-     * @var AppInterface
-     */
-    public static $app;
-
-    /**
-     * @var ModelInterface
-     */
-    public static $model;
-
-    /**
-     * @var RequestInterface
-     */
-    public static $request;
-
-    /**
-     * @var ContainerInterface
-     */
-    public static $container;
-
-    public static function setApp(AppInterface $app)
+    private static function get($alias)
     {
-        self::$app = $app;
+        return \Yii::$container->get(self::$map[$alias]);
     }
 
-    public static function setContainer(ContainerInterface $container)
+    public static function __callStatic($name, $arguments)
     {
-        self::$container = $container;
-    }
-
-    public static function setConfig(ConfigInterface $config)
-    {
-        self::$config = $config;
-    }
-
-    public static function setModel(ModelInterface $model)
-    {
-        self::$model = $model;
-    }
-
-    public static function setRequest(RequestInterface $request)
-    {
-        self::$request = $request;
+        return self::get($name);
     }
 }

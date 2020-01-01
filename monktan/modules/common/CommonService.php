@@ -10,14 +10,12 @@ namespace monktan\modules\common;
 
 use Gregwar\Captcha\CaptchaBuilder;
 use monktan\common\services\BaseService;
+use monktan\libraries\Captcha;
 
 class CommonService extends BaseService
 {
     public function captcha()
     {
-        $builder = new CaptchaBuilder();
-        $builder->build();
-        header('Content-type: image/jpeg');
-        $builder->output();
+         return  Captcha::generate();
     }
 }

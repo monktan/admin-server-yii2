@@ -3,12 +3,28 @@ namespace monktan\modules\user;
 
 trait PasswordServiceTrait
 {
+    public function updatePasswordByEmailCode($params)
+    {
+        $userId = mt_model('EmailCode')->newQuery()
+            ->where(['code'=>$params['code'], 'status'=>1])
+            ->where(['>', 'expired_time', time()])
+            ->value('user_id');
+
+        if (empty($userId)) {
+            mt_model('邮箱链接已过期');
+        }
+
+        $updateData['password'] = password_hash($params['password'], PASSWORD_DEFAULT);
+        $this->baseUpdate($updateData, [$userId]);
+    }
+
     public function updatePassword($userId, $params)
     {
         $user = mt_model($this->model)
             ->newQuery()
             ->where(['user_id'=>$userId])
             ->one();
+
         if (empty($user)) {
             mt_throw_info('用户不存在');
         }

@@ -9,4 +9,5 @@ return [
         'app\controllers\CommonController::captcha',
     ],
     'email' => ORIGIN_CONFIGS['email'],
+    'base_url' => 'http://39.108.160.31',
 ];

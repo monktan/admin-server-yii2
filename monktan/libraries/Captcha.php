@@ -16,8 +16,8 @@ class Captcha
         $builder = new CaptchaBuilder(null, $phraseBuilder);
         $builder->build();
         $phrase = $builder->getPhrase();
-        $phraseUuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, 'monktan');
-
+        $phraseUuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, bin2hex(random_bytes(15)))->toString();
+        $phraseUuid = str_replace('-', '', $phraseUuid);
         //保存到redis中
         App::cache()->set($phraseUuid, $phrase, 300);
         header("Captcha-Uuid: {$phraseUuid}");

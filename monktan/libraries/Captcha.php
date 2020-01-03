@@ -16,10 +16,10 @@ class Captcha
         $builder = new CaptchaBuilder(null, $phraseBuilder);
         $builder->build();
         $phrase = $builder->getPhrase();
-        $phraseUuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, bin2hex(random_bytes(15)))->toString();
+        $phraseUuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, bin2hex(random_bytes(18)))->toString();
         $phraseUuid = str_replace('-', '', $phraseUuid);
         //保存到redis中
-        App::cache()->set($phraseUuid, $phrase, 300);
+        App::cache()->setex($phraseUuid, 300, $phrase);
         header("Captcha-Uuid: {$phraseUuid}");
 
         return $builder->inline();
@@ -28,10 +28,13 @@ class Captcha
     public static function check($captcha, $uuid)
     {
         $cache = App::cache();
-        $result = false;
-        if ($cache->exists($uuid) && $cache->get($uuid) == $captcha) {
-            $result = true;
+        if (! $cache->exists($uuid)) {
+            return false;
         }
+
+        $result = ($cache->get($uuid) == $captcha);
+        $cache->delete($uuid);
+
         return $result;
     }
 }

@@ -7,16 +7,21 @@ class Cache implements CacheInterface
 {
     public function get($key)
     {
-        return \Yii::$app->cache->get($key);
+        return \Yii::$app->redis->get($key);
     }
 
-    public function set($key, $value, $duration = null, $dependency = null)
+    public function set($key, $value)
     {
-        return \Yii::$app->cache->set($key, $value, $duration, $dependency);
+        return \Yii::$app->redis->set($key, $value);
+    }
+
+    public function setex($key, $ttl, $value)
+    {
+        return \Yii::$app->redis->setex($key, $ttl, $value);
     }
 
     public function exists($key)
     {
-        return \Yii::$app->cache->exists($key);
+        return \Yii::$app->redis->exists($key);
     }
 }

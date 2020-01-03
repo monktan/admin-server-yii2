@@ -42,10 +42,7 @@ return [
                 ],
             ],
         ],
-        'cache' => [
-            'class' => 'yii\redis\Cache',
-            'redis' => ORIGIN_CONFIGS['redis'],
-        ],
+        'redis' => ORIGIN_CONFIGS['redis'],
         'response' => [
             'format' => yii\web\Response::FORMAT_JSON,
             'charset' => 'UTF-8',

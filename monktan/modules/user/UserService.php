@@ -31,6 +31,10 @@ class UserService extends BaseService
      */
     protected $authLogService;
 
+    const FIND_PASSWORD_EMAIL = 'find_password_email';
+    const BIND_EMAIL = 'bind_email';
+    const RESET_PASSWORD_EMAIL = 'reset_password_email';
+
     public function __construct(
         UserModelInterface $userModel,
         AuthService $authService,

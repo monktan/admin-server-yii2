@@ -1,5 +1,7 @@
 <?php
-$alias = [];
+$alias = [
+    'captcha' => 'common/captcha@test',
+];
 return [
     'success' => [
         'name' => '登录-成功',
@@ -10,8 +12,11 @@ return [
             'username' => 'guojueneng',
             'password' => '1234567',
             'grant_type' => 'password',
-            'captcha' => '11',
-            'captcha_id' => 'dd',
+            'captcha' => getd($alias['captcha'], 'response_body.captcha'),
+            'captcha_id' => getd($alias['captcha'], 'response_body.captcha_id'),
+        ],
+        'dependencies' => [
+            $alias['captcha']
         ],
         'tests' => function ($body, $headers) {
             assertJson($body);

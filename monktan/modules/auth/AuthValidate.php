@@ -2,6 +2,7 @@
 namespace monktan\modules\auth;
 
 use monktan\common\BaseValidate;
+use monktan\libraries\Captcha;
 
 class AuthValidate extends BaseValidate
 {
@@ -23,6 +24,9 @@ class AuthValidate extends BaseValidate
         }
         if (empty($params['captcha_id'])) {
             mt_throw_info('参数captcha_id为空');
+        }
+        if (! Captcha::check($params['captcha'], $params['captcha_id'])) {
+            mt_throw_info('验证码错误或已过期');
         }
 
         return true;

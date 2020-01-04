@@ -9,7 +9,6 @@ class BaseValidate
             return true;
         }
 
-
         return call_user_func_array([$this, $scenario], [$params]);
     }
 }

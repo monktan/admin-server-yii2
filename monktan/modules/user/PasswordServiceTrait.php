@@ -3,6 +3,17 @@ namespace monktan\modules\user;
 
 trait PasswordServiceTrait
 {
+    public function updatePassword($params)
+    {
+        if (!empty($params['user_id'])) {
+            $this->updatePasswordByUserId($params);
+        } elseif (! empty($params['email_code'])) {
+            $this->updatePasswordByEmailCode($params);
+        } elseif (! empty($params['old_password'])) {
+            $this->updatePasswordBySelf($params);
+        }
+    }
+
     public function updatePasswordByEmailCode($params)
     {
         $userId = mt_model('EmailCode')->newQuery()
@@ -11,18 +22,18 @@ trait PasswordServiceTrait
             ->value('user_id');
 
         if (empty($userId)) {
-            mt_model('邮箱链接已过期');
+            mt_throw_info('邮箱链接已过期');
         }
 
         $updateData['password'] = password_hash($params['password'], PASSWORD_DEFAULT);
         $this->baseUpdate($updateData, [$userId]);
     }
 
-    public function updatePassword($userId, $params)
+    public function updatePasswordByUserId($params)
     {
         $user = mt_model($this->model)
             ->newQuery()
-            ->where(['user_id'=>$userId])
+            ->where(['user_id'=>$params['user_id']])
             ->one();
 
         if (empty($user)) {
@@ -31,11 +42,11 @@ trait PasswordServiceTrait
 
         //更新密码
         $updateData['password'] = password_hash($params['new_password'], PASSWORD_DEFAULT);
-        $this->baseUpdate($updateData, [$userId]);
+        $this->baseUpdate($updateData, [$params['user_id']]);
         $this->logUpdate([], [$user]);
     }
 
-    public function updateSelfPassword($params)
+    public function updatePasswordBySelf($params)
     {
         $userId = mt_session_data('user_id');
         $user = mt_model($this->model)

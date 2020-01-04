@@ -73,18 +73,10 @@ class UserController extends BaseWebController
         return ['message' => '更新状态成功'];
     }
 
-    public function actionUpdatePassword($userId)
+    public function actionUpdatePassword()
     {
         $params = $this->request->getBodyParams();
-        $this->service->updatePassword($userId, $params);
-
-        return ['message' => '更新密码成功'];
-    }
-
-    public function actionUpdatePasswordByEmailCode()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->updatePasswordByEmailCode($params);
+        $this->service->updatePassword($params);
 
         return ['message' => '更新密码成功'];
     }
@@ -103,14 +95,6 @@ class UserController extends BaseWebController
         $this->service->updateEmail($userId, $params);
 
         return ['message' => '更新邮箱成功'];
-    }
-
-    public function actionUpdateSelfPassword()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->updateSelfPassword($params);
-
-        return ['message' => '更新密码成功'];
     }
 
     public function actionGetList()
@@ -138,26 +122,10 @@ class UserController extends BaseWebController
         return $detail;
     }
 
-    public function actionSendFindPasswordEmail()
+    public function actionSendEmail()
     {
         $params = $this->request->getBodyParams();
-        $this->service->sendFindPasswordEmail($params);
-
-        return ['message' => '邮件发送成功'];
-    }
-
-    public function actionSendBindEmail()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->sendBindEmail($params);
-
-        return ['message' => '邮件发送成功'];
-    }
-
-    public function actionSendResetPasswordEmail()
-    {
-        $params = $this->request->getBodyParams();
-        $this->service->sendResetPasswordEmail($params);
+        $this->service->sendEmail($params);
 
         return ['message' => '邮件发送成功'];
     }

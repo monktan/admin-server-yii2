@@ -6,7 +6,22 @@ use monktan\libraries\Email;
 
 trait EmailServiceTrait
 {
-    public function sendFindPasswordEmail($params)
+    public function sendEmail($params)
+    {
+        switch ($params['type']) {
+            case self::FIND_PASSWORD_EMAIL:
+                $this->sendFindPasswordEmail($params);
+                break;
+            case self::BIND_EMAIL:
+                $this->sendBindEmail($params);
+                break;
+            case self::RESET_PASSWORD_EMAIL:
+                $this->sendFindPasswordEmail($params);
+                break;
+        }
+    }
+
+    private function sendFindPasswordEmail($params)
     {
         $user = $user = $this->getUserByEmail($params['email']);
         $title = '找回密码';
@@ -26,13 +41,13 @@ trait EmailServiceTrait
         $this->saveCode($emailCodeData);
     }
 
-    public function sendResetPasswordEmail($params)
+    private function sendResetPasswordEmail($params)
     {
         $title = '重置密码';
         //
     }
 
-    public function sendBindEmail($params)
+    private function sendBindEmail($params)
     {
         $user = $this->getUserByEmail($params['email']);
 

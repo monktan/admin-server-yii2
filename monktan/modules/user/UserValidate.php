@@ -89,4 +89,14 @@ class UserValidate extends BaseValidate
     public function getAuthLogList($params)
     {
     }
+
+    public function sendEmail($params)
+    {
+        if (empty($params['type'])) {
+            mt_throw_info('发送类型不能为空');
+        }
+        if (empty($params['email'])) {
+            mt_throw_info('邮箱不能为空');
+        }
+    }
 }

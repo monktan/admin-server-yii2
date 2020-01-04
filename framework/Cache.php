@@ -24,4 +24,9 @@ class Cache implements CacheInterface
     {
         return \Yii::$app->redis->exists($key);
     }
+
+    public function del($key1)
+    {
+        return \Yii::$app->redis->del($key1);
+    }
 }

@@ -5,27 +5,24 @@ $alias = [
 ];
 return [
     'success' => [
-        'name' => '修改密码-成功',
-        'uri' => '/user/password',
+        'name' => '更新状态-成功',
+        'uri' => '/user/status',
         'headers' => [
             'Authorization' => getd($alias['login'], 'response_body.access_token')
         ],
         'method' => 'put',
         'body' => [
-            'old_password' => 1234567,
-            'confirm_password' => 1234567,
-            'new_password' => 1234567,
-        ],
-        'after_dependencies' => [
-            $alias['login'],
+            'user_ids' => get_list_user_ids('list', $alias),
+            'status' => 1,
         ],
         'dependencies' => [
             $alias['login'],
+            $alias['list'],
         ],
         'tests' => function ($body, $headers) {
             assertJson($body);
             $jsonBody = json_decode($body, true);
-            assertEquals('更新密码成功', $jsonBody['message']);
+            assertEquals('更新状态成功', $jsonBody['message']);
         }
     ]
 ];

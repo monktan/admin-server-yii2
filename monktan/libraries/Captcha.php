@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
 
 class Captcha
 {
-    public static function generate()
+    public static function generate($withPhrase = false)
     {
         $phraseBuilder = new PhraseBuilder(4);
         $builder = new CaptchaBuilder(null, $phraseBuilder);
@@ -21,6 +21,10 @@ class Captcha
         //保存到redis中
         App::cache()->setex($phraseUuid, 300, $phrase);
         header("Captcha-Uuid: {$phraseUuid}");
+
+        if ($withPhrase) {
+            return ['captcha_id'=>$phraseUuid, 'captcha'=>$phrase];
+        }
 
         return $builder->inline();
     }
@@ -33,7 +37,7 @@ class Captcha
         }
 
         $result = ($cache->get($uuid) == $captcha);
-        $cache->delete($uuid);
+        $cache->del($uuid);
 
         return $result;
     }

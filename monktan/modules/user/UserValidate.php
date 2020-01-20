@@ -72,9 +72,22 @@ class UserValidate extends BaseValidate
 
     public function updatePassword($params)
     {
-        if (empty($params['old_password'])) {
-            mt_throw_info('原密码不能为空');
+        if (isset($params['old_password'])) {
+            if (empty($params['old_password'])) {
+                mt_throw_info('原密码不能为空');
+            }
+        } elseif (isset($params['user_id'])) {
+            if (empty($params['user_id'])) {
+                mt_throw_info('用户ID为空');
+            }
+        } elseif (isset($params['email_code'])) {
+            if (empty($params['email_code'])) {
+                mt_throw_info('邮箱随机码为空');
+            }
+        } else {
+            mt_throw_info('参数错误');
         }
+
         if (empty($params['confirm_password'])) {
             mt_throw_info('确认密码为空');
         }

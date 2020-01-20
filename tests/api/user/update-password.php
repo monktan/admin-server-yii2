@@ -36,7 +36,7 @@ return [
         'uri' => '/user/password',
         'method' => 'put',
         'body' => [
-            'code' => 1234567,
+            'email_code' => '6c2b878898b769642d1ebf8c1908627c9ba3d38e9845420a5e35a844a2aa1a97',
             'confirm_password' => 1234567,
             'new_password' => 1234567,
         ],

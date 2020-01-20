@@ -95,7 +95,7 @@ if (! function_exists('mt_route')) {
 if (! function_exists('mt_session_data')) {
     function mt_session_data($key = '')
     {
-        $sessionData = [];
+        $sessionData = '';
         if (! isset($_SERVER['session_data'])) {
             return $sessionData;
         }

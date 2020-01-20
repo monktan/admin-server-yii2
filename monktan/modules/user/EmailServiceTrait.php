@@ -41,10 +41,13 @@ trait EmailServiceTrait
         $this->saveCode($emailCodeData);
     }
 
-    private function sendResetPasswordEmail($params)
+    public function sendResetPasswordEmail($params)
     {
         $title = '重置密码';
-        //
+        $content = "新密码为: {$params['password']}";
+        $receivers = [$params['email']];
+
+        Email::send($title, $content, $receivers);
     }
 
     private function sendBindEmail($params)
@@ -52,7 +55,7 @@ trait EmailServiceTrait
         $user = $this->getUserByEmail($params['email']);
 
         $title = '邮箱绑定验证';
-        $code = Email::genRandomCode();
+        $code = Email::genRandomCode(32, 'string');
         $content = UrlHelper::buildUrlWithEmailCode($code, UrlHelper::BIND_EMAIL);
         $receivers = [$params['email']];
 
@@ -69,13 +72,17 @@ trait EmailServiceTrait
         $this->saveCode($emailCodeData);
     }
 
-    public function updateEmail($userId, $params)
+    public function updateEmail($params)
     {
         //校验随机码
-        $this->checkCode($params['email'], $params['code']);
+        $emailItem = $this->checkCode($params['code'], 1);
+
+
+        $userId = mt_model('User')->newQuery()
+            ->where(['email'=>$emailItem['email']])->value('user_id');
         //更新邮箱
-        $updateData['email'] = $params['email'];
-        $updateData['update_by'] = $params['update_by'];
+        $updateData['email'] = $emailItem['email'];
+        $updateData['update_by'] = $userId;
 
         $this->baseUpdate($updateData, [$userId]);
     }
@@ -91,18 +98,20 @@ trait EmailServiceTrait
         mt_model('EmailCode')->insert($insertData);
     }
 
-    public function checkCode($email, $code)
+    public function checkCode($code, $type)
     {
-        $id = mt_model('EmailCode')->newQuery()
-            ->where(['email'=>$email, 'code'=>$code, 'status'=>1])
+        $item = mt_model('EmailCode')->newQuery()
+            ->where(['code'=>$code, 'status'=>2, 'type'=>$type])
             ->where(['>', 'expired_time', time()])
-            ->value('id');
+            ->sql();
 
-        if (empty($id)) {
+        if (empty($item)) {
             mt_model('邮箱验证码不正确或已过期');
         }
 
-        mt_model('EmailCode')->update(['status'=>1], ['id'=>$id]);
+        mt_model('EmailCode')->update(['status'=>1], ['id'=>$item['id']]);
+
+        return $item;
     }
 
     public function getUserByEmail($email)

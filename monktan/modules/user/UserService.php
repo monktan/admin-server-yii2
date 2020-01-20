@@ -31,9 +31,9 @@ class UserService extends BaseService
      */
     protected $authLogService;
 
-    const FIND_PASSWORD_EMAIL = 'find_password_email';
-    const BIND_EMAIL = 'bind_email';
-    const RESET_PASSWORD_EMAIL = 'reset_password_email';
+    const FIND_PASSWORD_EMAIL = 'find-password-email';
+    const BIND_EMAIL = 'bind-email';
+    const RESET_PASSWORD_EMAIL = 'reset-password-email';
 
     public function __construct(
         UserModelInterface $userModel,
@@ -128,7 +128,6 @@ class UserService extends BaseService
         if (empty($updateData['update_by'])) {
             $updateData['update_by'] = mt_session_data('user_id');
         }
-
 
         mt_model($this->model)->update($updateData, ['in', 'user_id', $userIds]);
     }

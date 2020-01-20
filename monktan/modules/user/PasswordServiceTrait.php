@@ -16,16 +16,18 @@ trait PasswordServiceTrait
 
     public function updatePasswordByEmailCode($params)
     {
-        $userId = mt_model('EmailCode')->newQuery()
-            ->where(['code'=>$params['code'], 'status'=>1])
-            ->where(['>', 'expired_time', time()])
-            ->value('user_id');
-
-        if (empty($userId)) {
+        try {
+            $emailItem = $this->checkCode($params['email_code'], 3);
+        } catch (\Exception $e) {
             mt_throw_info('邮箱链接已过期');
         }
 
-        $updateData['password'] = password_hash($params['password'], PASSWORD_DEFAULT);
+        $userId = mt_model('User')->newQuery()->where(['email'=>$emailItem['email']])->value('user_id');
+        if (empty($userId)) {
+            mt_throw_info("找不到邮箱{$emailItem['email']}对应的用户");
+        }
+        $updateData['password'] = password_hash($params['new_password'], PASSWORD_DEFAULT);
+        $updateData['update_by'] = $userId;
         $this->baseUpdate($updateData, [$userId]);
     }
 
@@ -83,6 +85,7 @@ trait PasswordServiceTrait
         $this->logUpdate([], [$user]);
 
         $params['email'] = $user['email'];
+        $params['password'] = $password;
         $this->sendResetPasswordEmail($params);
     }
 

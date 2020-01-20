@@ -6,7 +6,8 @@ $alias = [
 return [
     'success' => [
         'name' => '重置密码-成功',
-        'uri' => '/user/'. get_list_user_id('list', $alias) . '/random-password',
+//        'uri' => '/user/'. get_list_user_id('list', $alias) . '/random-password',
+        'uri' => '/user/50151680070647813/random-password',
         'headers' => [
             'Authorization' => getd($alias['login'], 'response_body.access_token')
         ],

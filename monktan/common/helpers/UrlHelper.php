@@ -10,7 +10,7 @@ class UrlHelper
     {
         $baseUrl = \Yii::$app->params['base_url'];
 
-        return "{$baseUrl}\{$partUri}\{$code}";
+        return "{$baseUrl}\\{$partUri}\\{$code}";
     }
 
     public static function buildUrl()

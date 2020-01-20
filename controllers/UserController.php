@@ -106,15 +106,6 @@ class UserController extends BaseWebController
         return $result;
     }
 
-    public function actionGetListForOptions()
-    {
-        $params = $this->request->get();
-
-        $result = $this->service->getListForOptions($params);
-
-        return $result;
-    }
-
     public function actionDetail($userId)
     {
         $detail = $this->service->detail($userId);

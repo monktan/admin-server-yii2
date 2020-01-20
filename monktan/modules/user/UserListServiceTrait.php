@@ -67,20 +67,4 @@ trait UserListServiceTrait
 
         return $query;
     }
-
-    public function getListForOptions($params)
-    {
-        $pageSize = !empty($params['page_size']) ? intval($params['page_size']) : 20;
-        $page = !empty($params['page']) ? intval($params['page']) : 1;
-        $offset = ($page - 1) * $pageSize;
-        $fields = ['user_id', 'real_name', 'username'];
-        $orderBy = 'id desc';
-
-        $data = $this->getListQuery($params)->fields($fields)->offset($offset)
-            ->limit($pageSize)
-            ->order($orderBy)
-            ->all();
-
-        return $data;
-    }
 }

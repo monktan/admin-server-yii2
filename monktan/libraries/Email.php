@@ -24,11 +24,11 @@ class Email
         return $result;
     }
 
-    public static function genRandomCode($length = 6, $type = 'int')
+    public static function genRandomCode($length = 5, $type = 'int')
     {
         if ($type == 'int') {
-            $min = 10 ^ ($length - 1);
-            $max = 10 ^ ($length + 1) - 1;
+            $min = pow(10, $length);
+            $max = pow(10, $length+1) - 1;var_dump($min, $max);die;
             $code = random_int($min, $max);
         } else {
             $code = bin2hex(random_bytes($length));

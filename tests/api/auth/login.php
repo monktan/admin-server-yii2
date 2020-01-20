@@ -15,6 +15,7 @@ return [
             'captcha' => getd($alias['captcha'], 'response_body.captcha'),
             'captcha_id' => getd($alias['captcha'], 'response_body.captcha_id'),
         ],
+        'is_run_dependency' => true,
         'dependencies' => [
             $alias['captcha']
         ],

@@ -6,6 +6,7 @@ return [
         'app\controllers\AuthController::login',
         'app\controllers\AuthController::refresh-token',
         'app\controllers\UserController::send-email',
+        'app\controllers\UserController::update-password',
         'app\controllers\CommonController::captcha',
         'app\controllers\CommonController::captcha-test',
         'app\controllers\CommonController::email-code-status',

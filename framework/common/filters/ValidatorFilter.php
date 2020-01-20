@@ -19,8 +19,22 @@ class ValidatorFilter extends ActionFilter
         unset($getParams['r']); //去掉路由参数
         $params = array_merge($getParams, $params);
 
-        $action->controller->validate->validate($action->id, $params);
+
+        $actionId = $this->convertActionId($action->id);
+        $action->controller->validate->validate($actionId, $params);
 
         return true;
+    }
+
+    private function convertActionId($actionId)
+    {
+        $words = explode('-', $actionId);
+        foreach ($words as $k => $word) {
+            $words[$k] = ucwords($word);
+        }
+        $newActionId = join('', $words);
+        $newActionId = lcfirst($newActionId);
+
+        return $newActionId;
     }
 }
